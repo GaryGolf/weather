@@ -15,7 +15,7 @@
 		"react-navigation": "^1.0.0-beta.13",
 		"react-redux": "^5.0.6",
 		"redux": "^3.7.2",
-		"redux-promise-middleware": "^4.4.1",
+		"redux-promise": "^0.5.3",
 		"redux-thunk": "^2.2.0"
 	},
 	"devDependencies": {
@@ -26,14 +26,12 @@
 		"@types/redux": "^3.6.0",
 		"@types/redux-logger": "^3.0.4",
 		"@types/redux-promise": "^0.5.27",
-		"@types/redux-promise-middleware": "^0.0.8",
 		"@types/redux-thunk": "^2.1.0",
 		"babel-jest": "21.2.0",
 		"babel-preset-react-native": "4.0.0",
 		"jest": "21.2.1",
 		"react-test-renderer": "16.0.0-beta.5",
 		"redux-logger": "^3.0.6",
-		"redux-promise": "^0.5.3",
 		"typescript": "^2.5.3"
 	},
 	"jest": {
