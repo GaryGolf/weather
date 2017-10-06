@@ -1,6 +1,7 @@
 import * as React from 'react'
 import {StyleSheet, Image, Text, View, TouchableHighlight} from 'react-native'
 import { NavigationParams, NavigationStackScreenOptions } from 'react-navigation'
+import * as API from '../helpers/api'
 const back = require('../../assets/img/back.png')
 
 interface Props {
@@ -23,8 +24,17 @@ export default class Weather extends React.Component <Props, null> {
     ),
     headerStyle: {backgroundColor: '#512da7'} ,
     headerTitleStyle: { color: '#fff'}
-}) 
+  })
+  constructor(props:Props){
+    super(props)
+    console.log('constructor')
+    const a = API.getWatherReport('Boston')
+    console.log(a)
+  } 
   render(){
+    // if(!this.props.navigation || !this.props.navigation.params) return null
+    // const {place} = this.props.navigation.params.state
+    console.log('hello')
     return (
       <View style={styles.container}>
         <Text>Wather report</Text>
