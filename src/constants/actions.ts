@@ -1,1 +1,3 @@
 export const NOTHING_HAPPEND = 'NOTHING_HAPPEND'
+export const INIT_PLACES = 'INIT_PLACES'
+export const FETCH_WEATHER = 'FETCH_WEATHER' 

@@ -1,20 +1,28 @@
-
+import * as API from '../helpers/api'
 import * as Actions from '../constants/actions';
 
 export interface WeatherState {
-    init: boolean
+    ["place"]?: WeatherReport
 }
 
-const initialState: WeatherState = {
-    init: false
-}
+const initialState: WeatherState = {}
 
 export function weather(state = initialState, action): WeatherState {
+
     const {type, payload} = action
+
     switch (action.type) {
+
     case Actions.NOTHING_HAPPEND :
+    
+      break
+
+    case Actions.FETCH_WEATHER :
+      return {...state, [payload.place]:payload}
+      
     default:
       break
-  }
-  return state
+    }
+    return state
 }
+

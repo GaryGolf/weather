@@ -1,4 +1,3 @@
-const url = 'https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="Nizhny Novgorod") and u="C"&format=json'
 /*
 showMapImage(lat,lng) {
   var url = 'https://maps.googleapis.com/maps/api/staticmap?center='+lat+','+lng+
@@ -15,3 +14,19 @@ showMapImage(lat,lng) {
 <img src="https://poweredby.yahoo.com/purple.png" width="134" height="29"/>
 
 */
+
+import * as API from './api'
+import {PLACES} from '../constants/index'
+
+export async function init():Promise<string[]> {
+  let places = await API.getStoredPlaces()
+  if(!places) {
+      places = PLACES
+      await API.setStoredPlaces(places)
+  }
+  return places 
+}
+
+export async function fetchWeather(place:string):Promise<WeatherReport> {
+  return await API.getWatherReport(place)
+}

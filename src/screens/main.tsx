@@ -1,14 +1,39 @@
 import * as React from 'react'
-import { Image, View, Text, StyleSheet, TouchableHighlight} from 'react-native'
+import { bindActionCreators, Dispatch, Action } from 'redux'
+import { Image, View, Text, StyleSheet, TouchableHighlight } from 'react-native'
 import { NavigationParams, NavigationStackScreenOptions } from 'react-navigation'
+import * as Actions from '../constants/actions'
+const {connect} = require('react-redux')
 const hamburger = require('../../assets/img/hamburger.png')
+
+import {init, fetchWeather} from '../helpers/weather'
 
 interface Props {
   navigation?: NavigationParams
+  weather?: any
+  fetch(place:string):void
 }
 interface State {}
 
+@connect(
+  state => ({
+    weather: state.weather
+  }),
+  dispatch => ({
+    fetch: (place:string) => dispatch({type: Actions.FETCH_WEATHER, payload:fetchWeather(place)})
+  })
+)
 export default class Main extends React.Component <Props, State> {
+
+  constructor(props:Props){
+    super(props)
+    console.log('Main')
+  }
+
+  componentDidMount(){
+    init().then(places=>places.forEach(this.props.fetch))
+  }
+
   static navigationOptions = ({navigation}) => ({
     title: 'Weather',
     headerLeft: (
