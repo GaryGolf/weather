@@ -1,8 +1,7 @@
 import * as React from 'react'
-import { View, Text, StyleSheet, TouchableHighlight} from 'react-native'
+import { Image, View, Text, StyleSheet, TouchableHighlight} from 'react-native'
 import { NavigationParams, NavigationStackScreenOptions } from 'react-navigation'
-import Options from '../components/media/options'
-import Menu from '../components/media/menu'
+const hamburger = require('../../assets/img/hamburger.png')
 
 interface Props {
   navigation?: NavigationParams
@@ -13,28 +12,35 @@ export default class Main extends React.Component <Props, State> {
   static navigationOptions = ({navigation}) => ({
     title: 'Weather',
     headerLeft: (
-        <TouchableHighlight onPress={()=>navigation.navigate('DrawerOpen')}> 
-             <View style={styles.menu}>
-                {/* <Menu/> */}
-                <Text>{'<'}</Text>
-            </View> 
-        </TouchableHighlight>
+      <TouchableHighlight onPress={()=>navigation.navigate('DrawerOpen')}> 
+        <View style={styles.menu}>
+          <Image
+            style={styles.hamburger}
+            source={hamburger}
+          />
+        </View> 
+      </TouchableHighlight>
     ),
-    headerRight: (
-        <TouchableHighlight onPress={()=>navigation.navigate('DrawerOpen')}> 
-             <View style={styles.menu}>
-                {/* <Options/> */}
-                <Text>{'*'}</Text>
-            </View> 
-        </TouchableHighlight>
-    ),
-    headerStyle: {backgroundColor: '#512da7'} ,
-    headerTitleStyle: { color: '#fff'}
-}) 
+    headerStyle: {backgroundColor: '#999'} ,
+    headerTitleStyle: { color: '#eef'}
+  }) 
+
+  navigate = (place:string) => {
+    this.props.navigation.navigate('Weather',{place})
+  }
+
   render(){
     return (
       <View style={styles.container}>
         <Text>Weather App</Text>
+        <TouchableHighlight 
+          onPress={e=>this.navigate('Local Weather')}>
+          <Text>Local Weather</Text>
+        </TouchableHighlight>
+        <TouchableHighlight 
+          onPress={e=>this.navigate('Moscow')}>
+          <Text>Moscow</Text>
+        </TouchableHighlight>
       </View>
     )
   }
@@ -50,5 +56,9 @@ const styles = StyleSheet.create({
   menu: {
     margin: 10,
     padding: 4
-}
+  },
+  hamburger: {
+    width: 30,
+    height: 30
+  }
 })
