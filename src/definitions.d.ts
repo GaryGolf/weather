@@ -45,3 +45,8 @@ declare interface WeatherReport {
   forecast?:    Array<Forecast>
   units?:       Units
 }
+
+declare interface Coords {
+  latitude: string
+  longitude: string
+}

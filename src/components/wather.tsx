@@ -29,6 +29,7 @@ export default class Weather extends React.Component <Props, null> {
     super(props)
     
   } 
+  
   render(){
     // if(!this.props.navigation || !this.props.navigation.params) return null
     // const {place} = this.props.navigation.params.state
