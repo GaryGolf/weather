@@ -27,9 +27,7 @@ export default class Weather extends React.Component <Props, null> {
   })
   constructor(props:Props){
     super(props)
-    console.log('constructor')
-    API.getWatherReport('Boston')
-      .then(console.log)
+    
   } 
   render(){
     // if(!this.props.navigation || !this.props.navigation.params) return null
