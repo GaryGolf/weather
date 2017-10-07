@@ -18,7 +18,7 @@ export function weather(state = initialState, action): WeatherState {
       break
 
     case Actions.FETCH_WEATHER :
-      return {...state, [payload.place]:payload}
+      if(payload) return {...state, [payload.place]:payload}
       
     default:
       break

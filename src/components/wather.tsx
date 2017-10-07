@@ -22,8 +22,8 @@ export default class Weather extends React.Component <Props, null> {
         </View> 
       </TouchableHighlight>
     ),
-    headerStyle: {backgroundColor: '#512da7'} ,
-    headerTitleStyle: { color: '#fff'}
+    headerStyle: {backgroundColor: '#999'} ,
+    headerTitleStyle: { color: '#eef'}
   })
   constructor(props:Props){
     super(props)
