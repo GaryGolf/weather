@@ -24,6 +24,9 @@ export function weather(state = initialState, action): WeatherState {
     case Actions.ADD_PLACE : 
       if(!payload || keys.some(key=>key==payload)) break
       return {...state, [payload.place]:payload}
+
+    case Actions.RESET :
+      return {}
     
     default:
       break

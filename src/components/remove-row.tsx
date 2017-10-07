@@ -21,7 +21,7 @@ export default class WeatherRow extends React.PureComponent <Props, null> {
           <View style={styles.line}>
             <Text style={styles.place}>{place}</Text>
             <TouchableHighlight onPress={this.handleButtonPress}>
-              <View>
+              <View style={styles.remove}>
                 <Image
                   style={styles.button}
                   source={icon}
@@ -52,12 +52,8 @@ const styles = StyleSheet.create({
   },
   remove: {
     padding: 10,
-    fontSize: 22,
-    height: 44,
-    color: '#eee'
   },
   button: {
-    // backgroundColor: '#f00'
     width: 24,
     height: 24
   }

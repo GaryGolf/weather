@@ -1,20 +1,3 @@
-/*
-showMapImage(lat,lng) {
-  var url = 'https://maps.googleapis.com/maps/api/staticmap?center='+lat+','+lng+
-'&zoom=12&size=640x640&style=feature:all%7Csaturation:-80'+ 
-'&style=feature:road.arterial%7Celement:geometry%7Chue:0x00FFEE%7Csaturation:50'+
-'&style=feature:poi.business%7Celement:labels%7Cvisibility:off'+
-'&style=feature:poi%7Celement:geometry%7Clightness:45'
-  var html = '<img class="img-thumbnail img-rounded img-responsive" src="'+
-      url+'" alt="local map">'
-  // $('#local-map').attr('src', url)
-  $('#map').html(html)
-}
-
-<img src="https://poweredby.yahoo.com/purple.png" width="134" height="29"/>
-
-*/
-
 import * as API from './api'
 import {PLACES} from '../constants/index'
 
@@ -39,8 +22,8 @@ function  wait(ms:number): Promise<String> {
 
 async function getLocalPlaceName(): Promise<string> {
   const {latitude, longitude} = await API.getCurrentPosition()
-  // return await API.getLocalPlaceName(latitude,longitude)
-  return await wait(1000).then(ok=>'Nizhny Novgorod')
+  return await API.getLocalPlaceName(latitude,longitude)
+  // return await wait(1000).then(ok=>'Kiev') // !!!!
 }
 
 export async function fetchWeather(place:string):Promise<WeatherReport> {
@@ -54,9 +37,16 @@ export async function removePlace(place:string):Promise<string> {
 }
 
 export async function addPlace(place:string):Promise<any> {
-  const report = await API.getWatherReport(place)
+  const [report,places] = await Promise.all([API.getWatherReport(place),API.getStoredPlaces()])
   if(!report) return null
+  places.push(place)
+  if(places) await API.setStoredPlaces(places)
   return report
+}
+
+export async function resetPlaces():Promise<string[]> {
+  await API.setStoredPlaces(PLACES)
+  return await init()
 }
 
 
