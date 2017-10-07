@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default (props:Props) => {
-  const {key, weather} = props.rowData.item
+  const {weather} = props.rowData.item
   return (
     <View style={styles.container}>
       <Text style={styles.place}>{weather.place}</Text>

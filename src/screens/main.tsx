@@ -8,8 +8,6 @@ const {connect} = require('react-redux')
 const hamburger = require('../../assets/img/hamburger.png')
 
 import {init, fetchWeather} from '../helpers/weather'
-// const Swipeout = require('react-native-swipeout')
-// import * as Swipeout from 'react-native-swipeout'
 
 import WeatherRow from '../components/weather-row'
 
@@ -64,12 +62,13 @@ export default class Main extends React.Component <Props, State> {
     if(!this.props.weather) return null
     const {weather} = this.props
     const keys = Object.keys(this.props.weather)
-    const data = keys.map(key=>({key, weather: weather[key]}))
+    const data = keys.map(key=>({ weather: weather[key]}))
 
     return (
       <ScrollView>
         <FlatList 
           data={data}
+          keyExtractor={item=>item.weather.place}
           renderItem={rowData=><WeatherRow rowData={rowData}/>}
         /> 
       </ScrollView>
