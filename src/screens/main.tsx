@@ -11,6 +11,8 @@ import {init, fetchWeather} from '../helpers/weather'
 
 import WeatherRow from '../components/weather-row'
 
+import * as API from '../helpers/api'
+
 interface Props {
   navigation?: NavigationParams
   weather?: any

@@ -1,5 +1,5 @@
 import {AsyncStorage } from 'react-native'
-import { yahooWeatherURL } from '../constants/index'
+import { yahooWeatherURL, googleApiURL } from '../constants/index'
 
 export function getWatherReport(place:string, u:Unit='C'):Promise<WeatherReport> {
 
@@ -16,7 +16,19 @@ export function getWatherReport(place:string, u:Unit='C'):Promise<WeatherReport>
     })
 }
 
-
+export function getLocalPlaceName(latitude:string,longitude:string):Promise<string> {
+  return fetch(googleApiURL(latitude,longitude))
+  .then(response => response.json())
+  .then(response => {
+    const place = response.results[0].address_components[2].long_name
+    console.log('getLocalPLaceName:',place)
+    return place
+  })
+  .catch(error=>{
+    console.log(error)
+    return null
+  })
+}
 
 // AsyncStorage API
 

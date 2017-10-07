@@ -19,12 +19,22 @@ import * as API from './api'
 import {PLACES} from '../constants/index'
 
 export async function init():Promise<string[]> {
-  let places = await API.getStoredPlaces()
+
+  let [places, local] = await Promise.all([API.getStoredPlaces(), getLocalPlaceName()])
+
   if(!places) {
       places = PLACES
-      await API.setStoredPlaces(places)
+      API.setStoredPlaces(places)
   }
+
+  if(local) places.push(local)
+
   return places 
+}
+
+async function getLocalPlaceName(): Promise<string> {
+  const {latitude, longitude} = await API.getCurrentPosition()
+  return await API.getLocalPlaceName(latitude,longitude)
 }
 
 export async function fetchWeather(place:string):Promise<WeatherReport> {
