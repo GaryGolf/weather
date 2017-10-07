@@ -27,7 +27,7 @@ interface State {
     weather: state.weather
   }),
   dispatch => ({
-    fetch: (place:string) => dispatch({type: Actions.FETCH_WEATHER, payload:fetchWeather(place)})
+    fetch: (place:string) => dispatch({type: Actions.ADD_PLACE, payload:fetchWeather(place)})
   })
 )
 export default class Main extends React.Component <Props, State> {

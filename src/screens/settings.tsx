@@ -9,6 +9,7 @@ const {connect} = require('react-redux')
 interface Props {
   navigation?: NavigationParams
   weather?: {['place']: WeatherReport}
+  remove(place:string):void
 }
 interface State {
   text: string
@@ -19,7 +20,7 @@ interface State {
     weather: state.weather
   }),
   dispatch => ({
-    //fetch: (place:string) => dispatch({type: Actions.FETCH_WEATHER, payload:fetchWeather(place)})
+    remove: (place:string) =>  dispatch({type: Actions.REMOVE_PLACE, payload:place})
   })
 )
 export default class Settings extends React.PureComponent <Props, State> {
@@ -39,11 +40,8 @@ export default class Settings extends React.PureComponent <Props, State> {
     this.setState({text})
   }
 
-  handleRemovePlace = (place:string) => {
-    console.log(place)
-  }
   render(){
-    const {weather} = this.props
+    const {weather, remove} = this.props
 
     return (
       <View>
@@ -65,7 +63,7 @@ export default class Settings extends React.PureComponent <Props, State> {
 
             <RemoveRow 
               rowData={rowData}
-              onPressItem={this.handleRemovePlace}
+              onPressItem={remove}
             />
 
           )}

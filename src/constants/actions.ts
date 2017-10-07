@@ -1,3 +1,2 @@
-export const NOTHING_HAPPEND = 'NOTHING_HAPPEND'
-export const INIT_PLACES = 'INIT_PLACES'
-export const FETCH_WEATHER = 'FETCH_WEATHER' 
+export const ADD_PLACE = 'ADD_PLACE'
+export const REMOVE_PLACE = 'REMOVE_PLACE'
