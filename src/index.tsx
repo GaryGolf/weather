@@ -17,8 +17,8 @@ const Drawer = {
   MainStack: {name: 'MainStack', screen: StackNavigator(Stack, {initialRouteName: 'Main'})}
 }
 
-// const Router = StackNavigator({Drawer:{name:'Drawer',screen:DrawerNavigator(Drawer)},...Stack},{headerMode: 'none'})
-const Router = StackNavigator(Stack)
+const Router = StackNavigator({Drawer:{name:'Drawer',screen:DrawerNavigator(Drawer)},...Stack},{headerMode: 'none'})
+// const Router = StackNavigator(Stack)
 
 export default class WeatherApp extends React.Component <Props,State> {
   render() {

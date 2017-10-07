@@ -37,16 +37,35 @@ export default class Weather extends React.Component <Props, null> {
     const weather:WeatherReport = this.props.navigation.state.params.weather
     return (
       <View style={styles.container}>
-        <Text>{weather.description}</Text>
-        <Text>Temperature: {weather.condition.temp} {weather.units.temperature}</Text>
-        <Text>Condition: {weather.condition.text}</Text>
-        <Text>Wind: {weather.wind.speed} {weather.units.speed} "{windDirection(weather.wind.direction)}"</Text>
-        <Text>Pressure: {weather.atmosphere.pressure} {weather.units.pressure}</Text>
-        <Text>Visibility:{weather.atmosphere.visibility} {weather.units.distance}</Text>
-        <Image
-            /* style={styles.hamburger} */
-            source={logo}
-          />
+        <View style={styles.weather}>
+          <View style={[styles.line,styles.title]}>
+            <Text style={styles.description}>{weather.description}</Text>
+          </View>
+          <View style={styles.line}>
+            <Text style={styles.bold}>Temperature:  </Text>
+            <Text>{weather.condition.temp} {weather.units.temperature}</Text>
+          </View>
+          <View style={styles.line}>  
+            <Text style={styles.bold}>Condition:  </Text>
+            <Text> {weather.condition.text}</Text>
+          </View>
+          <View style={styles.line}>
+            <Text style={styles.bold}>Wind:  </Text>
+            <Text> {weather.wind.speed} {weather.units.speed} "{windDirection(weather.wind.direction)}"</Text>
+          </View>
+          <View style={styles.line}>
+            <Text style={styles.bold}>Pressure:  </Text>
+            <Text>{weather.atmosphere.pressure} {weather.units.pressure}</Text>
+          </View>
+          <View style={styles.line}>
+            <Text style={styles.bold}>Visibility:  </Text>
+            <Text>{weather.atmosphere.visibility} {weather.units.distance}</Text>
+          </View>
+          <View style={styles.spacer}/>
+          <View style={styles.label}>
+            <Image source={logo}/>
+          </View>
+        </View>
       </View>
     )
   }
@@ -54,12 +73,43 @@ export default class Weather extends React.Component <Props, null> {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     height: '100%',
     width: '100%',
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    // alignItems: 'flex-start',
+    padding: 10
+  },
+  weather: {
+    flex: 5
+  },
+  description: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: '#444'
+
+  },
+  title: {
+    marginBottom: 20
+  },
+  line: {
+    flex: 1,
+    width: '100%',
+    flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    backgroundColor: '#fff',
+  },
+  label: {
+    flex: 1,
+    margin: 10,
+    alignItems: 'flex-end'
+  },
+  spacer: {
+    flex: 10
+  },
+  bold:{
+    fontWeight: '800'
   },
   back: {
     margin: 10,

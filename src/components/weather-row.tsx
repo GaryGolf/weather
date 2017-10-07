@@ -14,13 +14,13 @@ export default class WeatherRow extends React.PureComponent <Props, null> {
   }
 
   render(){
-    const {weather, onPressItem} = this.props.rowData.item
+    const weather:WeatherReport = this.props.rowData.item.weather
     return (
       <View style={styles.container}>
         <TouchableHighlight onPress={this.handleButtonPress}>
           <View style={styles.line}>
             <Text style={styles.place}>{weather.place}</Text>
-            <Text style={styles.temp}>{weather.condition.temp} C</Text>
+            <Text style={styles.temp}>{weather.condition.temp} {weather.units.temperature}</Text>
           </View>
         </TouchableHighlight>
       </View>
