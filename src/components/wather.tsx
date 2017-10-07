@@ -4,27 +4,15 @@ import { NavigationParams, NavigationStackScreenOptions } from 'react-navigation
 import * as API from '../helpers/api'
 import {windDirection} from '../helpers/weather'
 
-const back = require('../../assets/img/back.png')
 const logo = require('../../assets/img/purple.png')
 
 interface Props {
   navigation?: NavigationParams
 }
 
-
 export default class Weather extends React.Component <Props, null> {
   static navigationOptions = ({navigation}) => ({
     title: `${navigation.state.params.weather.place}`,
-    headerLeft: (
-      <TouchableHighlight onPress={()=>navigation.goBack(null)}> 
-        <View style={styles.back}>
-          <Image
-            style={styles.hamburger}
-            source={back}
-          />        
-        </View> 
-      </TouchableHighlight>
-    ),
     headerStyle: {backgroundColor: '#999'} ,
     headerTitleStyle: { color: '#eef'}
   })

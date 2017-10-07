@@ -32,9 +32,15 @@ export async function init():Promise<string[]> {
   return places 
 }
 
+function  wait(ms:number): Promise<String> {
+  return new Promise(resolve=>setTimeout(()=>resolve('Ok'),ms))
+}
+
+
 async function getLocalPlaceName(): Promise<string> {
   const {latitude, longitude} = await API.getCurrentPosition()
-  return await API.getLocalPlaceName(latitude,longitude)
+  // return await API.getLocalPlaceName(latitude,longitude)
+  return await wait(1000).then(ok=>'Nizhny Novgorod')
 }
 
 export async function fetchWeather(place:string):Promise<WeatherReport> {

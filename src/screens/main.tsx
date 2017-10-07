@@ -1,24 +1,26 @@
 import * as React from 'react'
 import { bindActionCreators, Dispatch, Action } from 'redux'
 import { Image, View, Text, StyleSheet, TouchableHighlight } from 'react-native'
-import { ScrollView, FlatList } from 'react-native'
+import { ScrollView, FlatList, TextInput } from 'react-native'
+
 import { NavigationParams, NavigationStackScreenOptions } from 'react-navigation'
 import * as Actions from '../constants/actions'
 const {connect} = require('react-redux')
 const hamburger = require('../../assets/img/hamburger.png')
+const settings = require('../../assets/img/settings.png')
 
 import {init, fetchWeather} from '../helpers/weather'
 
 import WeatherRow from '../components/weather-row'
-
-import * as API from '../helpers/api'
 
 interface Props {
   navigation?: NavigationParams
   weather?: any
   fetch(place:string):void
 }
-interface State {}
+interface State {
+  newPlaceName: string
+}
 
 @connect(
   state => ({
@@ -29,9 +31,10 @@ interface State {}
   })
 )
 export default class Main extends React.Component <Props, State> {
-
+  
   constructor(props:Props){
     super(props)
+    this.state = { newPlaceName: null}
   }
 
   componentDidMount(){
@@ -50,6 +53,16 @@ export default class Main extends React.Component <Props, State> {
         </View> 
       </TouchableHighlight>
     ),
+    headerRight: (
+      <TouchableHighlight onPress={()=>navigation.navigate('Settings')}> 
+      <View style={styles.menu}>
+        <Image
+          style={styles.hamburger}
+          source={settings}
+        />
+      </View> 
+    </TouchableHighlight>
+    ),
     headerStyle: {backgroundColor: '#999'} ,
     headerTitleStyle: { color: '#eef'}
   }) 
@@ -58,25 +71,25 @@ export default class Main extends React.Component <Props, State> {
     const {navigation, weather} = this.props
     navigation.navigate('Weather',{weather:weather[place]})
   }
-  
 
   render(){
 
-    if(!this.props.weather) return null
     const {weather} = this.props
-    const keys = Object.keys(this.props.weather)
-    const data = keys.map(key=>({ weather: weather[key]}))
 
     return (
+
       <ScrollView>
+
         <FlatList 
-          data={data}
+          data={Object.keys(weather).map(key=>({ weather: weather[key]}))}
           keyExtractor={item=>item.weather.place}
-          renderItem={rowData=>(
+          renderItem={ rowData => (
+
             <WeatherRow 
               rowData={rowData}
               onPressItem={this.navigate}
             />
+
           )}
         /> 
       </ScrollView>
