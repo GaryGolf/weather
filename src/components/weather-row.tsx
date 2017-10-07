@@ -1,23 +1,38 @@
 import * as React from 'react'
-import {View, Text, StyleSheet, ListRenderItemInfo} from 'react-native'
+import {View, Text, StyleSheet, ListRenderItemInfo, TouchableHighlight} from 'react-native'
 
 
 interface Props {
   rowData: ListRenderItemInfo<any>
+  onPressItem(place:string):void
 }
 
-export default (props:Props) => {
-  const {weather} = props.rowData.item
-  return (
-    <View style={styles.container}>
-      <Text style={styles.place}>{weather.place}</Text>
-      <Text style={styles.temp}>{weather.condition.temp} C</Text>
-    </View>
-  )
+export default class WeatherRow extends React.PureComponent <Props, null> {
+  
+  handleButtonPress = e => {
+    this.props.onPressItem(this.props.rowData.item.weather.place)
+  }
+
+  render(){
+    const {weather, onPressItem} = this.props.rowData.item
+    return (
+      <View style={styles.container}>
+        <TouchableHighlight onPress={this.handleButtonPress}>
+          <View style={styles.line}>
+            <Text style={styles.place}>{weather.place}</Text>
+            <Text style={styles.temp}>{weather.condition.temp} C</Text>
+          </View>
+        </TouchableHighlight>
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
+    width: '100%',
+  },
+  line: {
     flex: 1,
     width: '100%',
     flexDirection: 'row',

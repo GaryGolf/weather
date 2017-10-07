@@ -2,7 +2,10 @@ import * as React from 'react'
 import {StyleSheet, Image, Text, View, TouchableHighlight} from 'react-native'
 import { NavigationParams, NavigationStackScreenOptions } from 'react-navigation'
 import * as API from '../helpers/api'
+import {windDirection} from '../helpers/weather'
+
 const back = require('../../assets/img/back.png')
+const logo = require('../../assets/img/purple.png')
 
 interface Props {
   navigation?: NavigationParams
@@ -11,7 +14,7 @@ interface Props {
 
 export default class Weather extends React.Component <Props, null> {
   static navigationOptions = ({navigation}) => ({
-    title: `${navigation.state.params.place}`,
+    title: `${navigation.state.params.weather.place}`,
     headerLeft: (
       <TouchableHighlight onPress={()=>navigation.goBack(null)}> 
         <View style={styles.back}>
@@ -31,12 +34,19 @@ export default class Weather extends React.Component <Props, null> {
   } 
   
   render(){
-    // if(!this.props.navigation || !this.props.navigation.params) return null
-    // const {place} = this.props.navigation.params.state
-    console.log('hello')
+    const weather:WeatherReport = this.props.navigation.state.params.weather
     return (
       <View style={styles.container}>
-        <Text>Wather report</Text>
+        <Text>{weather.description}</Text>
+        <Text>Temperature: {weather.condition.temp} {weather.units.temperature}</Text>
+        <Text>Condition: {weather.condition.text}</Text>
+        <Text>Wind: {weather.wind.speed} {weather.units.speed} "{windDirection(weather.wind.direction)}"</Text>
+        <Text>Pressure: {weather.atmosphere.pressure} {weather.units.pressure}</Text>
+        <Text>Visibility:{weather.atmosphere.visibility} {weather.units.distance}</Text>
+        <Image
+            /* style={styles.hamburger} */
+            source={logo}
+          />
       </View>
     )
   }
@@ -44,12 +54,12 @@ export default class Weather extends React.Component <Props, null> {
 
 const styles = StyleSheet.create({
   container: {
-      flex: 1,
-      height: '100%',
-      width: '100%',
-      justifyContent: 'flex-start',
-      alignItems: 'center',
-      backgroundColor: '#fff',
+    flex: 1,
+    height: '100%',
+    width: '100%',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    backgroundColor: '#fff',
   },
   back: {
     margin: 10,

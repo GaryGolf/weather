@@ -53,7 +53,8 @@ export default class Main extends React.Component <Props, State> {
   }) 
 
   navigate = (place:string) => {
-    this.props.navigation.navigate('Weather',{place})
+    const {navigation, weather} = this.props
+    navigation.navigate('Weather',{weather:weather[place]})
   }
   
 
@@ -69,7 +70,12 @@ export default class Main extends React.Component <Props, State> {
         <FlatList 
           data={data}
           keyExtractor={item=>item.weather.place}
-          renderItem={rowData=><WeatherRow rowData={rowData}/>}
+          renderItem={rowData=>(
+            <WeatherRow 
+              rowData={rowData}
+              onPressItem={this.navigate}
+            />
+          )}
         /> 
       </ScrollView>
     )
