@@ -1,3 +1,7 @@
+// declare interface Action {
+
+// }
+
 declare type Unit = 'C' | 'F'
 
 declare interface Atmosphere {

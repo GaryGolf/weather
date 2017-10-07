@@ -47,6 +47,20 @@ export async function fetchWeather(place:string):Promise<WeatherReport> {
   return await API.getWatherReport(place)
 }
 
+export async function removePlace(place:string):Promise<string> {
+  const places = await API.getStoredPlaces()
+  if(places) await API.setStoredPlaces(places.filter(v=>v!=place))
+  return place
+}
+
+export async function addPlace(place:string):Promise<any> {
+  const report = await API.getWatherReport(place)
+  if(!report) return null
+  return report
+}
+
+
+
 export function windDirection(direction:string):string{
   const dir = Number(direction)
   if(dir>315 && dir<=45) return 'N'
@@ -57,3 +71,4 @@ export function windDirection(direction:string):string{
   else if(dir>225 && dir<=270) return 'E'
   return 'NE'
 }
+
