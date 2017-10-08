@@ -2,6 +2,5 @@
 
 to run
 ```
-npm install
-npm run ios
+yarn ios
 ```

@@ -5,8 +5,8 @@
 	"scripts": {
 		"build": "tsc -w",
 		"start": "react-native start",
-		"android": "tsc && react-native run-android",
-		"ios": "tsc && react-native run-ios",
+		"android": "yarn && tsc && react-native run-android",
+		"ios": "yarn && tsc && react-native run-ios",
 		"tools": "react-devtools",
 		"test": "jest --no-cache"
 	},
