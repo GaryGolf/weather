@@ -71,7 +71,7 @@ export function removeStoredPlaces():void {
 export function getCurrentPosition():Promise<Coords> {
   const options = {
     enableHighAccuracy: true, 
-    timeout: 20000, 
+    timeout: 2000, 
     maximumAge: 1000, 
     distanceFilter: 10 
   }

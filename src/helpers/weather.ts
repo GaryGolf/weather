@@ -21,9 +21,12 @@ function  wait(ms:number): Promise<String> {
 
 
 async function getLocalPlaceName(): Promise<string> {
-  const {latitude, longitude} = await API.getCurrentPosition()
-  return await API.getLocalPlaceName(latitude,longitude)
-  // return await wait(1000).then(ok=>'Kiev') // !!!!
+  try {
+    const {latitude, longitude} = await API.getCurrentPosition()
+    return await API.getLocalPlaceName(latitude,longitude)
+  } catch(error) {
+    return await wait(1000).then(ok=>null) // !!!!
+  }
 }
 
 export async function fetchWeather(place:string):Promise<WeatherReport> {
