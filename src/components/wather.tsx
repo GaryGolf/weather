@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {StyleSheet, Image, Text, View, TouchableHighlight} from 'react-native'
+import {FlatList, StyleSheet, Image, Text, View, TouchableHighlight} from 'react-native'
 import { NavigationParams, NavigationStackScreenOptions } from 'react-navigation'
 import * as API from '../helpers/api'
 import {windDirection} from '../helpers/weather'
@@ -23,6 +23,14 @@ export default class Weather extends React.Component <Props, null> {
   
   render(){
     const weather:WeatherReport = this.props.navigation.state.params.weather
+    const data = {data:weather.forecast}
+
+    const Row = ({rowData}) => (
+      <View style={styles.row}>
+        <Text>{rowData.day} {rowData.date.split(' ').slice(0,2).join(' ')}</Text> 
+        <Text>{rowData.low} - {rowData.high} {weather.units.temperature}</Text>
+      </View>
+    ) 
     return (
       <View style={styles.container}>
         <View style={styles.weather}>
@@ -49,6 +57,13 @@ export default class Weather extends React.Component <Props, null> {
             <Text style={styles.bold}>Visibility:  </Text>
             <Text>{weather.atmosphere.visibility} {weather.units.distance}</Text>
           </View>
+          <View style={styles.table}>
+            <FlatList 
+              data={weather.forecast}
+              keyExtractor={item=>item.date}
+              renderItem={({item}) => <Row rowData={item}/>}
+            />
+          </View>
           <View style={styles.spacer}/>
           <View style={styles.label}>
             <Image source={logo}/>
@@ -66,7 +81,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
-    // alignItems: 'flex-start',
     padding: 10
   },
   weather: {
@@ -88,13 +102,22 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
   },
+  table: {
+    flex: 7,
+    margin: 20
+  },
+  row:{
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
   label: {
     flex: 1,
     margin: 10,
     alignItems: 'flex-end'
   },
   spacer: {
-    flex: 10
+    flex: 3
   },
   bold:{
     fontWeight: '800'
