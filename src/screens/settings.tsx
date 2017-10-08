@@ -26,7 +26,7 @@ interface State {
   }),
   dispatch => ({
     add: (place:string) => dispatch({type: Actions.ADD_PLACE, payload:addPlace(place)}),
-    remove: bindActionCreators((place:string)=>({type:Actions.REMOVE_PLACE, payload:removePlace(place)}) as any, dispatch),
+    remove: (place:string) => dispatch({type:Actions.REMOVE_PLACE, payload:removePlace(place)}),
     reset: async () => {
       await dispatch({type: Actions.RESET})
       const places = await resetPlaces()
@@ -46,7 +46,6 @@ export default class Settings extends React.PureComponent <Props, State> {
     const input: any = this.input
     input.clear()
     this.props.add(place)
-    console.log('adding ', place)
   }
 
   handleNewPlaceInput = (text:string) => {
